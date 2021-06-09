@@ -3,8 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'layout',
+    loadChildren: () => import('src/app/components/layout/layout.module').then(m => m.LayoutModule)
+  },
+  {
     path: '**',
-    redirectTo: 'index'
+    redirectTo: 'layout/index'
   },
 ];
 

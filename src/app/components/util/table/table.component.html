@@ -1,1 +1,37 @@
-<p>table works!</p>
+<div class="container">
+    <div class="acciones">
+      <div class="filter">
+        <mat-form-field>
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="what are you looking for?" #input>
+        </mat-form-field>
+      </div>
+      <div class="btn-add">
+          <button mat-raised-button color="primary" (click)="addItem()">add</button>
+      </div>
+    </div>
+    <div class="table">
+        <table mat-table matSort [dataSource]="dataSource">
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="regiones">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Regiones </th>
+              <td mat-cell *matCellDef="let element"> {{element.regiones | uperCaseFirsLetter}} </td>
+            </ng-container>
+        
+            <!-- Name Column -->
+            <ng-container matColumnDef="comunas">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Comunas </th>
+              <td mat-cell *matCellDef="let element"> {{element.comunas | uperCaseFirsLetter}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onClickRow(row)"></tr>
+          </table>
+    </div>
+    <div class="footer">
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+    </div>
+</div>
+

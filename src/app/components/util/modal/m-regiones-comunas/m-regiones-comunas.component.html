@@ -1,0 +1,41 @@
+<h1 mat-dialog-title>Localidad</h1>
+<div mat-dialog-content>
+    <form [formGroup]="formGroupObject" (ngSubmit)="save()" #formObject="ngForm">
+        <div class="form">
+            <div class="input">
+                <mat-form-field >
+                    <mat-label>Regiones</mat-label>
+                    <input type="text" matInput formControlName="regiones" [matAutocomplete]="regiones">
+                    <mat-autocomplete #regiones="matAutocomplete" >
+                      <mat-option *ngFor="let regiones of filteredRegiones | async" [value]="regiones">
+                        {{regiones}}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <mat-error *ngIf="formGroupObject.get('regiones').hasError('required')">You must enter a value</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="input">
+                <mat-form-field>
+                    <mat-label>Comunas</mat-label>
+                    <input type="text" matInput formControlName="comunas" [matAutocomplete]="comunas">
+                    <mat-autocomplete #comunas="matAutocomplete" >
+                      <mat-option *ngFor="let comunas of filteredComunas | async" [value]="comunas">
+                        {{comunas}}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <mat-error *ngIf="formGroupObject.get('comunas').hasError('required')">You must enter a value</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions>
+  <div class="btn">
+    <button mat-button [mat-dialog-close]="{data:false}">Cancel</button>
+    <button mat-button form="ngForm" (click)="formObject.onSubmit(formGroupObject)" cdkFocusInitial>Ok</button>
+    <span class="spacer"></span>
+    <button mat-fab color="primary" (click)="delete()" [disabled]="data.isNew">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+</div>
